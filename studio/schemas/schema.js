@@ -62,11 +62,6 @@ export default createSchema({
       videoEmbed,
       bodyPortableText,
       excerptPortableText,
-<<<<<<< HEAD
-	  addQstn
-=======
-	    addQstn
->>>>>>> 08d280d142f94da16c0df704070a1bb48e168130
     ])
     .concat(allPlugs),
 })
