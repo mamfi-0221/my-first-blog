@@ -32,6 +32,7 @@ const Footer = ({ siteTitle }) => (
             {siteTitle}
           </a>
         </div>
+
         <div className="flex-1">
           <p className="uppercase text-gray-500 md:mb-6">Links</p>
           <ul className="list-reset mb-6">
@@ -50,41 +51,69 @@ const Footer = ({ siteTitle }) => (
                 Sanity Help
               </a>
             </li>
-            <li classname="mt-2 inline-block mr-2 md:block md:mr-0">
+            <li className="mt-2 inline-block mr-2 md:block md:mr-0">
               <a
                 href="https://slack.sanity.io"
-                classname="no-underline hover:underline text-gray-800 hover:text-orange-500"
+                className="no-underline hover:underline text-gray-800 hover:text-orange-500"
               >
-                Join Slack Community
-              </a>
-            </li>
-			<li classname="mt-2 inline-block mr-2 md:block md:mr-0">
-              <a
-                href="https://www.sanity.io/contact"
-                classname="no-underline hover:underline text-gray-800 hover:text-orange-500"
-              >
-                Contact Sanity
+                Slack Community
               </a>
             </li>
           </ul>
         </div>
         <div className="flex-1">
-          <p className="uppercase text-gray-500 md:mb-6">Let's Connect</p>
+          <p className="uppercase text-gray-500 md:mb-6">Legal</p>
+          <ul className="list-reset mb-6">
+            <li className="mt-2 inline-block mr-2 md:block md:mr-0">
+              <span className="no-underline hover:underline text-gray-800 hover:text-orange-500">
+                Terms
+              </span>
+            </li>
+            <li className="mt-2 inline-block mr-2 md:block md:mr-0">
+              <span className="no-underline hover:underline text-gray-800 hover:text-orange-500">
+                Privacy
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div className="flex-1">
+          <p className="uppercase text-gray-500 md:mb-6">Social</p>
           <ul className="list-reset mb-6">
             <li className="mt-2 inline-block mr-2 md:block md:mr-0">
               <a
-                href=""
+                href="https://twitter.com/sanity_io"
                 className="no-underline hover:underline text-gray-800 hover:text-orange-500"
               >
-                Instagram 
+                Twitter
               </a>
             </li>
             <li className="mt-2 inline-block mr-2 md:block md:mr-0">
               <a
-                href=""
+                href="https://www.linkedin.com/company/sanity-io/"
                 className="no-underline hover:underline text-gray-800 hover:text-orange-500"
               >
                 Linkedin
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="flex-1">
+          <p className="uppercase text-gray-500 md:mb-6">Company</p>
+          <ul className="list-reset mb-6">
+            <li className="mt-2 inline-block mr-2 md:block md:mr-0">
+              <Link
+                to="/blog"
+                className="no-underline hover:underline text-gray-800 hover:text-orange-500"
+              >
+                Blog
+              </Link>
+            </li>
+            <li className="mt-2 inline-block mr-2 md:block md:mr-0">
+              <a
+                href="https://www.sanity.io/contact"
+                className="no-underline hover:underline text-gray-800 hover:text-orange-500"
+              >
+                Contact
               </a>
             </li>
           </ul>
