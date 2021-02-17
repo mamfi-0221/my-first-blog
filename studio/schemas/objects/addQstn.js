@@ -5,10 +5,10 @@ export default {
   
   fields: [
     {
-	  title: 'Add',
-	  name: 'games'
-	  description: 'What will your question be?'
-	  type: 'string'
+      title: 'Question',
+      name: 'Question',
+      description: 'What will your question be?',
+      type: 'string'
     }
   ]
 }
