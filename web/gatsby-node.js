@@ -107,17 +107,20 @@ async function createQuizPages(pathPrefix = "/quiz", graphql, actions, reporter)
     }
   `);
 
-  result.data.allSanityQuiz.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/quiz-page.js`),
-      context: {
-        //Data passed to the context is available in page queries as GraphQL variables
-        slug: node.fields.slug,
-      },
-    })
-  })
-  if (result.errors) throw result.errors;
+   if (result.errors) throw result.errors;
+
+   const postEdges = (result.data.allSanityQuiz || {}).edges || [];
+   postEdges
+    .forEach((edge) => {
+      const { id, slug = {} } = edge.node;
+      const path = `${pathPrefix}/${slug.current}/`;
+      reporter.info(`Creating blog post page: ${path}`);
+      createPage({
+        path,
+        component: require.resolve("./src/templates/quiz-page.js"),
+        context: { id },
+      });
+    });
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
