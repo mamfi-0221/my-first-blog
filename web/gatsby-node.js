@@ -87,7 +87,41 @@ async function createBlogPostPages(pathPrefix = "/blog", graphql, actions, repor
     });
 }
 
+async function createQuizPages(pathPrefix = "/quiz", graphql, actions, reporter) {
+  const { createPage } = actions;
+  const result = await graphql(`
+    query {
+      allSanityQuiz(filter: {slug: {current: {ne: "null"}}}) {
+      edges {
+        node {
+          id
+          quizName
+          items {
+            question
+          }
+          slug {
+            current
+          }
+        }
+      }
+    }
+  `);
+
+  result.data.allSanityQuiz.edges.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/quiz-page.js`),
+      context: {
+        //Data passed to the context is available in page queries as GraphQL variables
+        slug: node.fields.slug,
+      },
+    })
+  })
+  if (result.errors) throw result.errors;
+}
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   await createLandingPages("/", graphql, actions, reporter);
   await createBlogPostPages("/blog", graphql, actions, reporter);
+  await createQuizPages("/quiz", graphql, actions, reporter)
 };

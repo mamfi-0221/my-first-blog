@@ -13,6 +13,8 @@ import post from './documents/post'
 import page from './documents/page'
 import siteSettings from './documents/siteSettings'
 import route from './documents/route'
+import quiz from './documents/quiz'
+import tasks from './documents/tasks'
 
 import experiment from './objects/experiment'
 import simpleBlockContent from './objects/simpleBlockContent'
@@ -31,6 +33,7 @@ import link from './objects/link'
 import variation from './objects/variation'
 import openGraph from './objects/openGraph'
 import latex from './latex'
+import quizItems from './objects/quizItems'
 
 const allPlugs = Object.values(plugs).map((plug) => {
   return { ...plug, fields: plugDefaultFields.concat(plug.fields) }
@@ -62,6 +65,9 @@ export default createSchema({
       videoEmbed,
       bodyPortableText,
       excerptPortableText,
+      quiz,
+      quizItems,
+      tasks,
     ])
     .concat(allPlugs),
 })
