@@ -21,6 +21,10 @@ export function getBlogUrl(slug) {
   return `/blog/${slug.current || slug}/`;
 }
 
+export function getQuizUrl(slug) {
+  return `/quiz/${slug.current || slug}/`;
+}
+
 export function buildImageObj(source = { asset: {} }) {
   const imageObj = {
     asset: { _ref: source.asset._ref || source.asset._id }

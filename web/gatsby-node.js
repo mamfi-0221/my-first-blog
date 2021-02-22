@@ -5,6 +5,7 @@ const { isFuture } = require("date-fns");
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+
 exports.createSchemaCustomization = ({ actions, schema }) => {
   actions.createTypes([
     schema.buildObjectType({
@@ -87,44 +88,41 @@ async function createBlogPostPages(pathPrefix = "/blog", graphql, actions, repor
     });
 }
 
-async function createQuizPages(pathPrefix = "/quiz", graphql, actions, reporter) {
+async function createQuizPage (pathPrefix = "/quiz", graphql, actions, reporter) {
   const { createPage } = actions;
   const result = await graphql(`
-    query {
-      allSanityQuiz(filter: {slug: {current: {ne: "null"}}}) {
+  {
+    allSanityQuiz(sort: {fields: _createdAt, order: DESC}) {
       edges {
         node {
-          id
-          quizName
-          items {
-            question
-          }
           slug {
             current
           }
+        id
         }
       }
     }
+  }
   `);
 
-   if (result.errors) throw result.errors;
+  if(result.errors) throw result.errors;
 
-   const postEdges = (result.data.allSanityQuiz || {}).edges || [];
-   postEdges
-    .forEach((edge) => {
-      const { id, slug = {} } = edge.node;
-      const path = `${pathPrefix}/${slug.current}/`;
-      reporter.info(`Creating blog post page: ${path}`);
-      createPage({
-        path,
-        component: require.resolve("./src/templates/quiz-page.js"),
-        context: { id },
-      });
+  const qpEdges = (result.data.allSanityQuiz || {}).edges || [];
+  qpEdges.forEach((edge) => {
+    const { id, slug = {} } = edge.node;
+    const path = `${pathPrefix}/${slug.current}/`;
+    reporter.info(`Creating quiz page: ${path}`);
+    createPage({
+      path,
+      component: require.resolve("./src/templates/quiz-page.js"),
+      context: { id },
     });
+  });
 }
+
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   await createLandingPages("/", graphql, actions, reporter);
   await createBlogPostPages("/blog", graphql, actions, reporter);
-  await createQuizPages("/quiz", graphql, actions, reporter)
+  await createQuizPage("/quiz", graphql, actions, reporter)
 };

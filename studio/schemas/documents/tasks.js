@@ -7,13 +7,24 @@ export default {
             type: "string"
         },
         {
-            title: "Status",
-            name: "status",
-            type: "string",
-            validation: Rule => Rule.required(),
-            options: {
-                layout: 'radio',
-                list: ['Not Started', 'In Progress', 'For Review', 'Completed']
-            }      
-        }],
+           title: "Not Started",
+           name: "Not_Started",
+           type: "boolean",
+        },
+        {
+           title: "In Progress",
+           name: "In_Progress",
+           type: "boolean",
+        },
+        {
+           title: "For Review",
+           name: "For_Review",
+           type: "boolean",
+        },
+        {
+           title: "Completed",
+           name: "Completed",
+           type: "boolean",
+        }
+    ],
 }

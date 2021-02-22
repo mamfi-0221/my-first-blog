@@ -4,7 +4,9 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import styles from '../components/blog-post-preview-list.module.css'
 import Container from "../components/container";
-import QuizPage from "../components/quiz-page";
+import { TopWave, BottomWave } from "../components/wave";
+import { getQuizUrl } from "../lib/helpers";
+
 
 export const query = graphql`
   {
@@ -12,38 +14,34 @@ export const query = graphql`
       edges {
         node {
           slug {
-            _key
-            _type
             current
           }
-          id
           quizName
-          items {
-            question
-            answer
-          }
         }
       }
     }
   }
 `
 
+
 const quizListPage = ({ data }) => (
     <Layout textWhite={false}>
-        <Container>
-        <div className={styles.root}>
-        <h1 className={styles.headline}>Your Quizzes</h1>
-          <ul className={styles.grid}>
-            {data.allSanityQuiz.edges.map(({ node: project }) => (
-            <li key={project.slug.current}>
-                <Link to={`/quiz/${project.slug.current || project.slug}/`}>
-                    {project.quizName} 
-                </Link>
-            </li>
-            ))}
-          </ul>
-        </div>
-        </Container>
-    </Layout>
+    <TopWave />
+      <Container>
+      <div className={styles.root}>
+      <h1 className={styles.headline}>Your Quizzes</h1>
+        <ul className={styles.grid}>
+          {data.allSanityQuiz.edges.map(({ node: project }) => (
+          <li>
+              <Link to={getQuizUrl(project.slug.current)}>
+                  {project.quizName} 
+              </Link>
+          </li>
+          ))}
+        </ul>
+      </div>
+      </Container>
+    <BottomWave />
+  </Layout>
 );
 export default quizListPage

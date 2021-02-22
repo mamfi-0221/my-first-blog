@@ -1,39 +1,56 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
-import styles from '../components/blog-post-preview-list.module.css'
 import Container from "../components/container";
+import styles from '../components/blog-post-preview-list.module.css'
+
 
 export const query = graphql`
   {
     allSanityTasks {
-      group(field: status) {
-        edges {
-          node {
-            taskName
-            status
-          }
+      edges {
+        node {
+          Not_Started
+          In_Progress
+          For_Review
+          Completed
+          taskName
         }
       }
     }
   }
 `
 
-const taskMgrPage = ({ data }) =>(
-  <Layout textWhite={false}>
-    <Container>
-    <div className={styles.root}>
-    <h1 className={styles.headline}>Your Tasks</h1>
-      <ul style={{display: 'flex', alignItems: 'space-between', flexDirection: 'row', width: '100%', padding: 0}}>
-        {data.allSanityTasks.group.map(node => (
-             <li style={{ flex: '1 45%', maxWidth: '45%'}}>
-                <h2>{node.taskName}</h2>
-            </li>
-        ))}  
-      </ul>
-    </div>
-    </Container>
-  </Layout>
-);
+export default function taskMgrPage({ data }){
+  return(
+    <Layout>
+      <Container>
+      <div className={styles.root}>
+        <h1 className={styles.headline} style={{textAlign: 'center'}}>Your Tasks</h1>
+        <table style={{width: '100%'}}>
+          <thead style={{backgroundColor: '#cce'}}>
+            <tr>
+              <th>Not Started</th>
+              <th>In Progress</th>
+              <th>For Review</th>
+              <th>Completed</th>
+            </tr>
+          </thead>
+          {data.allSanityTasks.edges.map(({ node }) => (
+          <tbody>
+              <tr style={{textAlign: 'center'}}>
+                <td>{node.Not_Started && node.taskName}</td>
+                <td>{node.In_Progress && node.taskName}</td>
+                <td>{node.For_Review && node.taskName}</td>
+                <td>{node.Completed && node.taskName}</td>
+              </tr>
+          </tbody>
+          ))}
+        </table>
+      </div>
+      </Container>
+    </Layout>
+  );
+}
 
-export default taskMgrPage
+

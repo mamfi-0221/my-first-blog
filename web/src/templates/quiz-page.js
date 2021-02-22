@@ -1,47 +1,33 @@
-import React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import Container from '../components/container'
+import React from "react";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
+import QPComponent from "../components/quiz-page";
 
-// export const query = graphql`
-//   {
-//     sanityQuiz(id: {eq: "$id"}) {
-//       id
-//       quizName
-//       items {
-//         question
-//         answer
-//       }
-//       slug {
-//         current
-//       }
-//     }
-//   }
-// `
+export const query = graphql`
+{
+  allSanityQuiz {
+    edges {
+      node {
+        slug {
+          current
+        }
+        quizName
+        items {
+          question
+          answer
+        }
+      }
+    }
+  }
+}`
 
-// const QuizPageTemplate = (props) => {
-//     const { data, errors } = props;
-//     const post = data && data.sanityQuiz;
 
-//     return(
-//         <Layout textWhite={false}>
-//             {errors && <SEO title="GraphQL Error"/>}
-
-//             {errors && (
-//                 <Container>
-//                 <GraphQLErrorList errors={errors} />
-//                 </Container>
-//             )}
-
-//             {post && <QuizPage {...post} />}
-//         </Layout>
-//     );
-// };
-
-export default function QuizPageTemplate() {
+export default function QuizPageTemplate({ data }) {
   return (
-    <Layout>
-      <div>Hello Quiz Page!</div>
+    <Layout textWhite={false}>
+      {data.allSanityQuiz.edges.map(({ node }) => (
+        <div>{<QPComponent {...node} />}</div>
+      ))}
     </Layout>
-  )
+  );
 }
