@@ -27,4 +27,10 @@ export default {
            type: "boolean",
         }
     ],
+    initialValue: {
+       Not_Started: false,
+       In_Progress: false,
+       For_Review: false,
+       Completed: false
+    }
 }

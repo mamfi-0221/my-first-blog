@@ -28,7 +28,7 @@ export default {
         slug: 'slug'
     },
     prepare ({title = 'No quiz name', slug = {}}){
-        const path = `/blog/${slug.current}`
+        const path = `/quiz/${slug.current}`
         return{
             title
         }

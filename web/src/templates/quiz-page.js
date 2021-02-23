@@ -1,33 +1,34 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
-import QPComponent from "../components/quiz-page";
+import QuizPage from "../components/quiz-page";
+import { TopWave } from "../components/wave";
 
 export const query = graphql`
-{
-  allSanityQuiz {
-    edges {
-      node {
-        slug {
-          current
-        }
-        quizName
-        items {
-          question
-          answer
-        }
-      }
+query QuizPageTemplateQuery($id: String!) {
+  quiz: sanityQuiz(id: { eq: $id }) {
+    id
+    quizName
+    items {
+      question
+      answer
     }
+    slug{
+      current
+    } 
   }
 }`
 
+const QuizPageTemplate = (props) => {
+  const { data } = props;
+  const quiz = data && data.quiz;
 
-export default function QuizPageTemplate({ data }) {
-  return (
+  return(
     <Layout textWhite={false}>
-      {data.allSanityQuiz.edges.map(({ node }) => (
-        <div>{<QPComponent {...node} />}</div>
-      ))}
+      <TopWave />
+        {quiz && <QuizPage {...quiz}/>}
     </Layout>
   );
-}
+};
+
+export default QuizPageTemplate;

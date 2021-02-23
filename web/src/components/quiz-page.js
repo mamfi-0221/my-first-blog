@@ -1,20 +1,25 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import Layout from "../components/layout";
 import Container from "../components/container";
-import { TopWave, BottomWave } from "../components/wave"
 import styles from './blog-post.module.css'
 
 
-export default function QuizPage(props) {
-  const {slug, quizName, items} = props
-  return (
+function QuizPage (props) {
+  const { items } = props
+
+  return(
     <Container>
-      <div className={styles.categories}>
-        <ul key={slug.current}>
-            {quizName && items.question}
-        </ul>
+      <div>
+        <ol>
+          {items.map(quiz => (
+            <li key={quiz.id} style={{listStyle: 'decimal', marginBottom: '20px'}}>
+                {quiz.question}
+              <br /><input id="userAnswer" type="text" style={{border: '3px solid gray', width: '100px'}} />
+            </li>
+          ))}
+        </ol>
       </div>
+      <input type="button" id="userAnswer" value="Finish Quiz"/>
     </Container>
-  )
+  );
 }
+export default QuizPage
