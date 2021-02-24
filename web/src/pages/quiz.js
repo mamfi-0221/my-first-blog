@@ -9,7 +9,7 @@ import { getQuizUrl } from "../lib/helpers";
 
 
 export const query = graphql`
-  {
+  query QuizName {
     allSanityQuiz {
       edges {
         node {
